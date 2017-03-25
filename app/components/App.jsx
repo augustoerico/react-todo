@@ -15,7 +15,6 @@ var App = React.createClass({
         var {tasks} = this.state;
         return (
             <div>
-                App.jsx
                 <TaskList tasks={tasks} />
             </div>
         )
