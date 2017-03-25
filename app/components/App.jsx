@@ -1,6 +1,7 @@
 var React = require('react');
 
 var TaskList = require('TaskList');
+var TaskForm = require('TaskForm');
 
 var App = React.createClass({
     getInitialState: function() {
@@ -11,11 +12,15 @@ var App = React.createClass({
             ]
         }
     },
+    handleFormSubmit: function (text) {
+        alert('new task: ' + text);
+    },
     render: function () {
         var {tasks} = this.state;
         return (
             <div>
                 <TaskList tasks={tasks} />
+                <TaskForm onSubmit={this.handleFormSubmit} /> 
             </div>
         )
     }
