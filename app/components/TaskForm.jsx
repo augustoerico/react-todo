@@ -8,6 +8,8 @@ var TaskForm = React.createClass({
         if (text.trim()) {
             this.refs.text.value = '';
             this.props.onSubmit(text);
+        } else {
+            this.refs.text.focus();
         }
     },
     render: function () {
@@ -15,7 +17,7 @@ var TaskForm = React.createClass({
             <div>
                 <form ref='form' placeholder= 'Enter a new task' onSubmit={this.onSubmit}>
                     <input ref='text' type='text'/>
-                    <button className='button' type='submit'>Submit</button>
+                    <button className='button expanded' type='submit'>Submit</button>
                 </form>
             </div>
         )
