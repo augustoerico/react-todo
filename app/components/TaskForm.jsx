@@ -15,9 +15,9 @@ var TaskForm = React.createClass({
     render: function () {
         return (
             <div>
-                <form ref='form' placeholder= 'Enter a new task' onSubmit={this.onSubmit}>
-                    <input ref='text' type='text'/>
-                    <button className='button expanded' type='submit'>Submit</button>
+                <form ref="form" onSubmit={this.onSubmit}>
+                    <input ref="text" type="text" placeholder="Enter a new task"/>
+                    <button className="button expanded" type="submit">Submit</button>
                 </form>
             </div>
         )

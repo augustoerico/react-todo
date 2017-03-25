@@ -1,5 +1,7 @@
 var React = require('react');
 
+var uuid = require('node-uuid');
+
 var TaskList = require('TaskList');
 var TaskForm = require('TaskForm');
 var TaskSearch = require('TaskSearch');
@@ -8,15 +10,23 @@ var App = React.createClass({
     getInitialState: function() {
         return {
             tasks: [
-                {id: 1, text: 'Play video-game'},
-                {id: 2, text: 'Drink coffee'}
+                {id: uuid(), text: 'Play video-game'},
+                {id: uuid(), text: 'Drink coffee'}
             ],
             showCompleted: false,
             search: ''
         }
     },
     handleFormSubmit: function (text) {
-        alert('new task: ' + text);
+        this.setState({
+            tasks: [
+                ...this.state.tasks,
+                {
+                    id: uuid(),
+                    text: text
+                }
+            ]
+        });
     },
     makeSearch: function (showCompleted, search) {
         this.setState({

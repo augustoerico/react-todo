@@ -12,4 +12,13 @@ describe('App', () => {
         expect(App).toExist();
     });
 
+    it('should add a new task to list', () => {
+        var app = TestUtils.renderIntoDocument(<App />);
+
+        app.setState({ tasks: [] });
+        app.handleFormSubmit('Test text');
+
+        expect(app.state.tasks[0].text).toBe('Test text');
+    });
+
 });
