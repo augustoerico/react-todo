@@ -22,6 +22,10 @@ module.exports = {
         filename: './public/bundle.js'
     },
     resolve: {
+        modules: [
+            'node_modules',
+            'app/components' 
+        ],
         alias: {
             applicationStyles: path.resolve(__dirname, './app/styles/app.scss')
         },
