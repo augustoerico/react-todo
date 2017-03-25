@@ -18,7 +18,7 @@ var App = React.createClass({
     handleFormSubmit: function (text) {
         alert('new task: ' + text);
     },
-    handleSearch: function (showCompleted, search) {
+    makeSearch: function (showCompleted, search) {
         this.setState({
             showCompleted: showCompleted,
             search: search
@@ -28,7 +28,7 @@ var App = React.createClass({
         var {tasks} = this.state;
         return (
             <div>
-                <TaskSearch handleSearch={this.handleSearch} />
+                <TaskSearch onChange={this.makeSearch} />
                 <TaskList tasks={tasks} />
                 <TaskForm onSubmit={this.handleFormSubmit} /> 
             </div>
