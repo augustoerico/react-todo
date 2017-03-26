@@ -10,8 +10,8 @@ var App = React.createClass({
     getInitialState: function() {
         return {
             tasks: [
-                {id: uuid(), text: 'Play video-game'},
-                {id: uuid(), text: 'Drink coffee'}
+                {id: uuid(), text: 'Play video-game', completed: false},
+                {id: uuid(), text: 'Drink coffee', completed: true}
             ],
             showCompleted: false,
             search: ''
@@ -23,7 +23,8 @@ var App = React.createClass({
                 ...this.state.tasks,
                 {
                     id: uuid(),
-                    text: text
+                    text: text,
+                    completed: false
                 }
             ]
         });
@@ -34,12 +35,21 @@ var App = React.createClass({
             search: search
         });
     },
+    doToggle: function (id) {
+        var updatedTasks = this.state.tasks.map((task) => {
+            if (task.id === id) {
+                task.completed = !task.completed
+            }
+            return task
+        });
+        this.setState({ tasks: updatedTasks });
+    },
     render: function () {
         var {tasks} = this.state;
         return (
             <div>
                 <TaskSearch onChange={this.makeSearch} />
-                <TaskList tasks={tasks} />
+                <TaskList tasks={tasks} onToggle={this.doToggle}/>
                 <TaskForm onSubmit={this.handleFormSubmit} /> 
             </div>
         )

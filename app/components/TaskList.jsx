@@ -3,14 +3,14 @@ var React = require('react');
 var Task = require('Task');
 
 var TaskList = React.createClass({
-    renderTasks: (tasks) => {
+    renderTasks: function (tasks) {
         return tasks.map((task) => {
-            return <Task key={task.id} {...task} />
+            return <Task key={task.id} {...task} 
+                onToggle={this.props.onToggle}/>
         });
     },
     render: function () {
         var {tasks} = this.props;
-        console.log(tasks)
         return (
             <div>
                 {this.renderTasks(tasks)}

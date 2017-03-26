@@ -2,10 +2,16 @@ var React = require('react');
 
 var Task = React.createClass({
     render: function () {
-        var {id, text} = this.props
+        var {id, text, completed} = this.props
         return (
             <div>
-                {id}. {text}
+                <label>
+                    <input type="checkbox" checked={completed} 
+                        onChange={() => {
+                            this.props.onToggle(id)
+                        }}/>
+                    {text}
+                </label>
             </div>
         )
     }
