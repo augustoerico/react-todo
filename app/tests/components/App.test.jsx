@@ -21,4 +21,20 @@ describe('App', () => {
         expect(app.state.tasks[0].text).toBe('Test text');
     });
 
+    it('should toggle completed value when doToggle is called', () => {
+        var task = {
+            id: 11,
+            text: 'Test toggle',
+            completed: false
+        };
+        var app = TestUtils.renderIntoDocument(<App />);
+        app.setState({ tasks: [task] });
+        
+        app.doToggle(11);
+        expect(app.state.tasks[0].completed).toBe(true);
+
+        app.doToggle(11);
+        expect(app.state.tasks[0].completed).toBe(false);
+    });
+
 });
