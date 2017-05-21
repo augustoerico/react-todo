@@ -5,17 +5,18 @@ var uuid = require('node-uuid');
 var TaskList = require('TaskList');
 var TaskForm = require('TaskForm');
 var TaskSearch = require('TaskSearch');
+var API = require('API');
 
 var App = React.createClass({
     getInitialState: function() {
         return {
-            tasks: [
-                {id: uuid(), text: 'Play video-game', completed: false},
-                {id: uuid(), text: 'Drink coffee', completed: true}
-            ],
+            tasks: API.getTasks(),
             showCompleted: false,
             search: ''
         }
+    },
+    componentDidUpdate: function () {
+        API.setTasks(this.state.tasks);
     },
     handleFormSubmit: function (text) {
         this.setState({

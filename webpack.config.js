@@ -24,7 +24,8 @@ module.exports = {
     resolve: {
         modules: [
             'node_modules',
-            'app/components' 
+            'app/components',
+            'app/api'
         ],
         alias: {
             applicationStyles: path.resolve(__dirname, './app/styles/app.scss')
