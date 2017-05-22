@@ -46,11 +46,12 @@ var App = React.createClass({
         this.setState({ tasks: updatedTasks });
     },
     render: function () {
-        var {tasks} = this.state;
+        var {tasks, showCompleted, search} = this.state;
+        var filteredTasks = API.filterTasks(tasks, showCompleted, search);
         return (
             <div>
                 <TaskSearch onChange={this.makeSearch} />
-                <TaskList tasks={tasks} onToggle={this.doToggle}/>
+                <TaskList tasks={filteredTasks} onToggle={this.doToggle}/>
                 <TaskForm onSubmit={this.handleFormSubmit} /> 
             </div>
         )
