@@ -1,0 +1,30 @@
+.task {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    padding: 1rem;
+    transition: background .3s ease;
+
+    p, input {
+        margin: 0;
+    }
+
+    > :first-child {
+        margin-right: 1rem;
+    }
+
+    &:hover {
+        background: #F0F0F0;
+    }
+}
+
+.task__subText {
+    color: #999;
+}
+
+.task-completed {
+    p, .task__subText {
+        color: $light-color;
+        text-decoration: line-through;
+    }
+}

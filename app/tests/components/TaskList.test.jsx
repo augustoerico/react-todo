@@ -24,4 +24,12 @@ describe('TaskList', () => {
         expect(taskList.lenght).toBe(tasks.lenght);
     });
 
+    it('should render empty message for no tasks', () => {
+        var tasks = []
+        var taskList = TestUtils.renderIntoDocument(<TaskList tasks={tasks} />);
+        var $el = $(ReactDOM.findDOMNode(taskList));
+
+        expect($el.find('.container__message').length).toBe(1);
+    });
+
 });

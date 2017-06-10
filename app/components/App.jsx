@@ -54,9 +54,17 @@ var App = React.createClass({
         var filteredTasks = API.filterTasks(tasks, showCompleted, search);
         return (
             <div>
-                <TaskSearch onChange={this.makeSearch} />
-                <TaskList tasks={filteredTasks} onToggle={this.doToggle}/>
-                <TaskForm onSubmit={this.handleFormSubmit} />
+                <h1 className="page-title">To do App</h1>
+
+                <div className="row">
+                    <div className="column small-centered small-11 medium-6 large -5">
+                        <div className="container">
+                            <TaskSearch onChange={this.makeSearch} />
+                            <TaskList tasks={filteredTasks} onToggle={this.doToggle}/>
+                            <TaskForm onSubmit={this.handleFormSubmit} />
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

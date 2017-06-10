@@ -9,7 +9,7 @@ var TaskSearch = React.createClass({
     },
     render: function () {
         return (
-            <div>
+            <div className="container__header">
                 <div>
                     <input type="search" ref="search" placeholder="Search your tasks" onChange={this.onChange}/>
                 </div>
