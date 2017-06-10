@@ -19,22 +19,28 @@ describe('App', () => {
         app.handleFormSubmit('Test text');
 
         expect(app.state.tasks[0].text).toBe('Test text');
+        expect(app.state.tasks[0].createdAt).toBeA('number');
+        expect(app.state.tasks[0].completedAt).toBe(undefined);
     });
 
     it('should toggle completed value when doToggle is called', () => {
         var task = {
             id: 11,
             text: 'Test toggle',
-            completed: false
+            completed: false,
+            createdAt: 0,
+            completedAt: undefined
         };
         var app = TestUtils.renderIntoDocument(<App />);
         app.setState({ tasks: [task] });
-        
+
         app.doToggle(11);
         expect(app.state.tasks[0].completed).toBe(true);
+        expect(app.state.tasks[0].completedAt).toBeA('number');
 
         app.doToggle(11);
         expect(app.state.tasks[0].completed).toBe(false);
+        expect(app.state.tasks[0].completedAt).toBe(undefined);
     });
 
 });
