@@ -1,6 +1,7 @@
 var React = require('react');
 
 var uuid = require('node-uuid');
+var moment = require('moment');
 
 var TaskList = require('TaskList');
 var TaskForm = require('TaskForm');
@@ -25,7 +26,9 @@ var App = React.createClass({
                 {
                     id: uuid(),
                     text: text,
-                    completed: false
+                    completed: false,
+                    createdAt: moment().unix(),
+                    completedAt: undefined
                 }
             ]
         });
@@ -40,6 +43,7 @@ var App = React.createClass({
         var updatedTasks = this.state.tasks.map((task) => {
             if (task.id === id) {
                 task.completed = !task.completed
+                task.completedAt = task.completed ? moment().unix() : undefined;
             }
             return task
         });
@@ -52,7 +56,7 @@ var App = React.createClass({
             <div>
                 <TaskSearch onChange={this.makeSearch} />
                 <TaskList tasks={filteredTasks} onToggle={this.doToggle}/>
-                <TaskForm onSubmit={this.handleFormSubmit} /> 
+                <TaskForm onSubmit={this.handleFormSubmit} />
             </div>
         )
     }
