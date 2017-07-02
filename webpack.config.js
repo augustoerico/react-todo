@@ -25,10 +25,12 @@ module.exports = {
         modules: [
             'node_modules',
             'app/components',
-            'app/api'
+            'app/api',
         ],
         alias: {
-            applicationStyles: path.resolve(__dirname, './app/styles/app.scss')
+            applicationStyles: path.resolve(__dirname, './app/styles/app.scss'),
+            actions: path.resolve(__dirname, './app/actions/actions.jsx'),
+            reducers: path.resolve(__dirname, './app/reducers/reducers.jsx')
         },
         extensions: ['.js', '.jsx']
     },
