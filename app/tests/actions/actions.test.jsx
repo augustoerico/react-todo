@@ -35,7 +35,7 @@ describe('Actions', () => {
                     createdAt: 8001
                 }
             ]
-        }
+        };
         var result = actions.addTasks(action.tasks);
         
         expect(result).toEqual(action)

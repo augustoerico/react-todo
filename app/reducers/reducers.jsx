@@ -32,6 +32,8 @@ export var tasksReducer = (state = [], action) => {
                     completedAt: undefined
                 }
             ];
+        case 'ADD_TASKS':
+            return [...state, ...action.tasks];
         case 'TOGGLE_TASK':
             return state.map((task) => {
                 if (task.id === action.id) {

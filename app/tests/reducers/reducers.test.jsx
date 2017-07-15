@@ -56,6 +56,26 @@ describe('Reducers', () => {
 
         });
 
+        it('should add a list of tasks', () => {
+            var action = {
+                type: 'ADD_TASKS',
+                tasks: [
+                    {
+                        id: '1',
+                        text: 'Add a task',
+                        completed: false,
+                        completedAt: undefined,
+                        createdAt: 8001
+                    }
+                ]
+            };
+
+            var result = reducers.tasksReducer(deepFreeze([]), deepFreeze(action));
+            
+            expect(result.length).toEqual(1);
+            expect(result[0]).toEqual(action.tasks[0]);
+        });
+
         it('should toggle a task', () => {
             var action = {
                 type: 'TOGGLE_TASK',
