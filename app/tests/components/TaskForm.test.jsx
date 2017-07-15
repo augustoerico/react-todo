@@ -4,7 +4,7 @@ var TestUtils = require('react-addons-test-utils');
 var expect = require('expect');
 var $ = require('jquery');
 
-var TaskForm = require('TaskForm');
+var {TaskForm} = require('TaskForm');
 
 describe('TaskForm', () => {
     
@@ -12,20 +12,25 @@ describe('TaskForm', () => {
         expect(TaskForm).toExist();
     });
 
-    it('should call handler on form submit', () => {
+    it('should dispatch ADD_TASK when valid task text', () => {
         var spy = expect.createSpy();
-        var taskForm = TestUtils.renderIntoDocument(<TaskForm onSubmit={spy}/>);
+        var taskForm = TestUtils.renderIntoDocument(<TaskForm dispatch={spy}/>);
         var $el = $(ReactDOM.findDOMNode(taskForm));
+
+        var action = {
+            type: 'ADD_TASK',
+            text: 'foo'
+        };
 
         taskForm.refs.text.value = 'foo';
         TestUtils.Simulate.submit($el.find('form')[0]);
 
-        expect(spy).toHaveBeenCalledWith('foo');
+        expect(spy).toHaveBeenCalledWith(action);
     });
 
-    it('should not call on form submit', () => {
+    it('should not dispatch ADD_TASK when invalid text', () => {
         var spy = expect.createSpy();
-        var taskForm = TestUtils.renderIntoDocument(<TaskForm onSubmit={spy}/>);
+        var taskForm = TestUtils.renderIntoDocument(<TaskForm dispatch={spy}/>);
         var $el = $(ReactDOM.findDOMNode(taskForm));
 
         taskForm.refs.text.value = '';
@@ -34,9 +39,9 @@ describe('TaskForm', () => {
         expect(spy).toNotHaveBeenCalled();
     });
 
-    it('should not call on form submit with whitespaces', () => {
+    it('should not dispatch ADD_TASK when text submit with whitespaces', () => {
         var spy = expect.createSpy();
-        var taskForm = TestUtils.renderIntoDocument(<TaskForm onSubmit={spy}/>);
+        var taskForm = TestUtils.renderIntoDocument(<TaskForm dispatch={spy}/>);
         var $el = $(ReactDOM.findDOMNode(taskForm));
 
         taskForm.refs.text.value = '';

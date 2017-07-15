@@ -1,13 +1,16 @@
 var React = require('react');
+var {connect} = require('react-redux');
+var actions = require('actions');
 
-var TaskForm = React.createClass({
+export var TaskForm = React.createClass({
     onSubmit: function (e) {
         e.preventDefault();
+        var {dispatch} = this.props;
         var text = this.refs.text.value;
 
         if (text.trim()) {
             this.refs.text.value = '';
-            this.props.onSubmit(text);
+            dispatch(actions.addTask(text))
         } else {
             this.refs.text.focus();
         }
@@ -24,4 +27,4 @@ var TaskForm = React.createClass({
     }
 });
 
-module.exports = TaskForm;
+export default connect()(TaskForm);

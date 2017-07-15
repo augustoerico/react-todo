@@ -4,7 +4,7 @@ var uuid = require('node-uuid');
 var moment = require('moment');
 
 import TaskList from 'TaskList';
-var TaskForm = require('TaskForm');
+import TaskForm from 'TaskForm';
 var TaskSearch = require('TaskSearch');
 var API = require('API');
 
