@@ -3,7 +3,7 @@ var React = require('react');
 var uuid = require('node-uuid');
 var moment = require('moment');
 
-var TaskList = require('TaskList');
+import TaskList from 'TaskList';
 var TaskForm = require('TaskForm');
 var TaskSearch = require('TaskSearch');
 var API = require('API');

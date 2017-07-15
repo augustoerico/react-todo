@@ -6,7 +6,7 @@ var expect = require('expect');
 var $ = require('jquery');
 
 var configureStore = require('configureStore');
-var TaskList = require('TaskList');
+import TaskList from 'TaskList';
 var App = require('App');
 
 describe('App', () => {

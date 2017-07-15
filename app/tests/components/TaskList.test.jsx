@@ -1,11 +1,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var {Provider} = require('react-redux');
 var TestUtils = require('react-addons-test-utils');
 var expect = require('expect');
 var $ = require('jquery');
 
-var TaskList = require('TaskList');
-var Task = require('Task');
+import {configure} from 'configureStore';
+import ConnectedTaskList, {TaskList} from 'TaskList';
+import ConnectedTask, {Task} from 'Task'
 
 describe('TaskList', () => {
 
@@ -15,13 +17,21 @@ describe('TaskList', () => {
 
     it('should render one Task componet for each task item', () => {
         var tasks = [
-            {id: 1, text: 'foo'},
-            {id: 2, text: 'bar'}
+            {id: 1, text: 'foo', completed: false, completedAt: undefined, createdAt: 500},
+            {id: 2, text: 'bar', completed: false, completedAt: undefined, createdAt: 500}
         ]
-        var taskList = TestUtils.renderIntoDocument(<TaskList tasks={tasks} />);
-        var taskComponents = TestUtils.scryRenderedComponentsWithType(taskList, Task);
+        var store = configure({
+            tasks
+        });
+        var provider = TestUtils.renderIntoDocument(
+            <Provider store={store}>
+                <ConnectedTaskList />
+            </Provider>
+        );
+        var taskList = TestUtils.scryRenderedComponentsWithType(provider, ConnectedTaskList)[0];
+        var taskComponents = TestUtils.scryRenderedComponentsWithType(taskList, ConnectedTask);
 
-        expect(taskList.lenght).toBe(tasks.lenght);
+        expect(taskComponents.length).toBe(tasks.length);
     });
 
     it('should render empty message for no tasks', () => {

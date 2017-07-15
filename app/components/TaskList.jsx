@@ -1,9 +1,8 @@
 var React = require('react');
 var {connect} = require('react-redux');
+import Task from 'Task';
 
-var Task = require('Task');
-
-var TaskList = React.createClass({
+export var TaskList = React.createClass({
     renderTasks: function (tasks) {
         return tasks.map((task) => {
             return <Task key={task.id} {...task}/>
@@ -27,7 +26,7 @@ var TaskList = React.createClass({
     }
 });
 
-module.exports = connect(
+export default connect(
     (state) => {
         return {
             tasks: state.tasks
