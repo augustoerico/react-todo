@@ -23,6 +23,24 @@ describe('Actions', () => {
         expect(result).toEqual(action);
     });
 
+    it('should generate add tasks action', () => {
+        var action = {
+            type: 'ADD_TASKS',
+            tasks: [
+                {
+                    id: '1',
+                    text: 'Add a task',
+                    completed: false,
+                    completedAt: undefined,
+                    createdAt: 8001
+                }
+            ]
+        }
+        var result = actions.addTasks(action.tasks);
+        
+        expect(result).toEqual(action)
+    });
+
     it('should generate toggle show completed action', () => {
         var action = {
             type: 'TOGGLE_SHOW_COMPLETED'

@@ -12,6 +12,13 @@ export var addTask = (text) => {
     };
 };
 
+export var addTasks = (tasks) => {
+    return {
+        type: 'ADD_TASKS',
+        tasks
+    }
+}
+
 export var toggleShowCompleted = () => {
     return {
         type: 'TOGGLE_SHOW_COMPLETED'
