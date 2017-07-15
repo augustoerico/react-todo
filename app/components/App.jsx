@@ -39,16 +39,6 @@ var App = React.createClass({
             search: search
         });
     },
-    doToggle: function (id) {
-        var updatedTasks = this.state.tasks.map((task) => {
-            if (task.id === id) {
-                task.completed = !task.completed
-                task.completedAt = task.completed ? moment().unix() : undefined;
-            }
-            return task
-        });
-        this.setState({ tasks: updatedTasks });
-    },
     render: function () {
         var {tasks, showCompleted, search} = this.state;
         var filteredTasks = API.filterTasks(tasks, showCompleted, search);
@@ -60,7 +50,7 @@ var App = React.createClass({
                     <div className="column small-centered small-11 medium-6 large -5">
                         <div className="container">
                             <TaskSearch onChange={this.makeSearch} />
-                            <TaskList tasks={filteredTasks} onToggle={this.doToggle}/>
+                            <TaskList />
                             <TaskForm onSubmit={this.handleFormSubmit} />
                         </div>
                     </div>

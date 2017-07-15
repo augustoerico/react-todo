@@ -1,10 +1,12 @@
 var React = require('react');
-
+var {connect} = require('react-redux');
 var moment = require('moment');
 
-var Task = React.createClass({
+var actions = require('actions');
+
+export var Task = React.createClass({
     render: function () {
-        var {id, text, completed, createdAt, completedAt} = this.props;
+        var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
         var taskClassName = completed ? 'task task-completed' : 'task';
         var renderDate = () => {
             var message = 'Create ';
@@ -21,9 +23,10 @@ var Task = React.createClass({
             <div className={taskClassName}>
                 <div>
                     <input type="checkbox" checked={completed}
-                        onChange={() => {
-                            this.props.onToggle(id)
-                        }}/>
+                        onChange={() => { 
+                                dispatch(actions.toggleTask(id)); 
+                            }
+                        }/>
                 </div>
                 <div>
                     <p>{text}</p>
@@ -34,4 +37,4 @@ var Task = React.createClass({
     }
 });
 
-module.exports = Task
+export default connect()(Task);

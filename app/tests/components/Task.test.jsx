@@ -4,7 +4,7 @@ var TestUtils = require('react-addons-test-utils');
 var expect = require('expect');
 var $ = require('jquery');
 
-var Task = require('Task');
+var {Task} = require('Task');
 
 describe('Task', () => {
 
@@ -12,7 +12,7 @@ describe('Task', () => {
         expect(Task).toExist();
     });
 
-    it('should call onToggle with id on change', () => {
+    it('should dispatch TOGGLE_TASK action on click', () => {
         var task = {
             id: 200,
             text: 'Write Task test',
@@ -20,11 +20,14 @@ describe('Task', () => {
         };
 
         var spy = expect.createSpy();
-        var task = TestUtils.renderIntoDocument(<Task {...task} onToggle={spy}/>);
+        var task = TestUtils.renderIntoDocument(<Task {...task} dispatch={spy}/>);
         var $el = $(ReactDOM.findDOMNode(task));
 
         TestUtils.Simulate.change($el.find('input')[0]);
-        expect(spy).toHaveBeenCalledWith(200);
+        expect(spy).toHaveBeenCalledWith({
+            type: 'TOGGLE_TASK',
+            id: 200
+        });
     });
 
 });

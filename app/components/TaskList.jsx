@@ -1,12 +1,12 @@
 var React = require('react');
+var {connect} = require('react-redux');
 
 var Task = require('Task');
 
 var TaskList = React.createClass({
     renderTasks: function (tasks) {
         return tasks.map((task) => {
-            return <Task key={task.id} {...task}
-                onToggle={this.props.onToggle}/>
+            return <Task key={task.id} {...task}/>
         });
     },
     render: function () {
@@ -27,4 +27,10 @@ var TaskList = React.createClass({
     }
 });
 
-module.exports = TaskList
+module.exports = connect(
+    (state) => {
+        return {
+            tasks: state.tasks
+        };
+    }
+)(TaskList);

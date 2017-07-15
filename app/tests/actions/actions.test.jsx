@@ -16,9 +16,9 @@ describe('Actions', () => {
     it('should generate add task action', () => {
         var action = {
             type: 'ADD_TASK',
-            task: 'Thing to do'
+            text: 'Thing to do'
         }
-        var result = actions.addTask(action.task);
+        var result = actions.addTask(action.text);
 
         expect(result).toEqual(action);
     });
