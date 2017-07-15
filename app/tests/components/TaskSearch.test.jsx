@@ -4,7 +4,7 @@ var TestUtils = require('react-addons-test-utils');
 var expect = require('expect');
 var $ = require('jquery');
 
-var TaskSearch = require('TaskSearch');
+import {TaskSearch} from 'TaskSearch'; 
 
 describe('TaskSearch', () => {
     
@@ -12,25 +12,32 @@ describe('TaskSearch', () => {
         expect(TaskSearch).toExist();
     });
 
-    it('should call onChange with input text', () => {
+    it('should dispatch SET_SEARCH on input change', () => {
         var spy = expect.createSpy();
-        var taskSearch = TestUtils.renderIntoDocument(<TaskSearch onChange={spy}/>);
+        var taskSearch = TestUtils.renderIntoDocument(<TaskSearch dispatch={spy}/>);
 
         taskSearch.refs.search.value = 'doge';
         TestUtils.Simulate.change(taskSearch.refs.search);
 
-        expect(spy).toHaveBeenCalledWith(false, 'doge');
+        var action = {
+            type: 'SET_SEARCH',
+            search: 'doge'
+        };
+
+        expect(spy).toHaveBeenCalledWith(action);
 
     });
 
-    it('should call onChange with input check box', () => {
+    it('should dispatch TOGGLE_SHOW_COMPLETED on checkbox toggle', () => {
         var spy = expect.createSpy();
-        var taskSearch = TestUtils.renderIntoDocument(<TaskSearch onChange={spy} />);
+        var taskSearch = TestUtils.renderIntoDocument(<TaskSearch dispatch={spy} />);
 
         taskSearch.refs.showCompleted.checked = true;
         TestUtils.Simulate.change(taskSearch.refs.showCompleted);
 
-        expect(spy).toHaveBeenCalledWith(true, '');
+        var action = {type: 'TOGGLE_SHOW_COMPLETED'};
+
+        expect(spy).toHaveBeenCalledWith(action);
     });
 
 });

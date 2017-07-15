@@ -5,7 +5,7 @@ var moment = require('moment');
 
 import TaskList from 'TaskList';
 import TaskForm from 'TaskForm';
-var TaskSearch = require('TaskSearch');
+import TaskSearch from 'TaskSearch';
 var API = require('API');
 
 var App = React.createClass({

@@ -1,21 +1,23 @@
 var React = require('react');
 
-var TaskSearch = React.createClass({
-    onChange: function () {
-        var showCompleted = this.refs.showCompleted.checked;
-        var search = this.refs.search.value;
+var {connect} = require('react-redux');
+var actions = require('actions');
 
-        this.props.onChange(showCompleted, search);
-    },
+export var TaskSearch = React.createClass({
     render: function () {
+        var {dispatch, showCompleted, search} = this.props;
         return (
             <div className="container__header">
                 <div>
-                    <input type="search" ref="search" placeholder="Search your tasks" onChange={this.onChange}/>
+                    <input type="search" ref="search" placeholder="Search your tasks" value={search} onChange={() => {
+                        dispatch(actions.setSearch(this.refs.search.value));
+                    }}/>
                 </div>
                 <div>
                     <label>
-                        <input type="checkbox" ref="showCompleted" onChange={this.onChange}/>
+                        <input type="checkbox" ref="showCompleted" checked={showCompleted} onChange={() => {
+                            dispatch(actions.toggleShowCompleted());
+                        }}/>
                         Show completed tasks
                     </label>
                 </div>
@@ -24,4 +26,9 @@ var TaskSearch = React.createClass({
     }
 });
 
-module.exports = TaskSearch;
+export default connect((state) => {
+    return {
+        showCompleted: state.showCompleted,
+        search: state.search
+    }
+})(TaskSearch);
