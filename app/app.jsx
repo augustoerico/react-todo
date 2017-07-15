@@ -9,13 +9,14 @@ var actions = require('actions');
 var store = require('configureStore').configure();
 
 store.subscribe(() => {
+  var state = store.getState();
   console.log('new state', store.getState());
 });
 
-store.dispatch(actions.addTask('Play games'));
+/*store.dispatch(actions.addTask('Play games'));
 store.dispatch(actions.setSearch('game'));
 store.dispatch(actions.toggleShowCompleted());
-
+*/
 // load foundation
 require('style-loader!css-loader!foundation-sites/dist/css/foundation.min.css');
 // app css

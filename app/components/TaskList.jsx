@@ -21,12 +21,10 @@ export var TaskList = React.createClass({
         }
         return (
             <div>
-                {this.renderTasks(tasks)}
+                {this.renderTasks(tasks, showCompleted, search)}
             </div>
         );
     }
 });
 
-export default connect(
-    (state) => { return state; }
-)(TaskList);
+export default connect((state) => { return state; })(TaskList);

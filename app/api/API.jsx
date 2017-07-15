@@ -29,7 +29,7 @@ module.exports = {
         // Filter by search text
         filteredTasks = filteredTasks.filter((task) => {
             var text = task.text.toLowerCase();
-            return search ? text.indexOf(search) > -1 : true;
+            return search ? text.indexOf(search.toLowerCase()) > -1 : true;
         })
 
         // Sort tasks with non-completed first
