@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 var expect = require('expect');
 
+import firebase from 'app/firebase/';
 var actions = require('actions');
 var createMockStore = configureMockStore([thunk]);
 
@@ -85,5 +86,41 @@ describe('Actions', () => {
         var result = actions.updateTask(action.id, action.updates);
 
         expect(result).toEqual(action);
+    });
+
+    describe('Firebase tasks', () => {
+        var testTasksRef;
+
+        beforeEach((done) => {
+            testTasksRef = firebase.database().ref('tasks/').push();
+            testTasksRef.set({
+                text: 'Something to do',
+                completed: false,
+                createdAt: 987654321
+            }).then(() => done());
+        });
+
+        afterEach((done) => {
+            testTasksRef.remove().then(() => done());
+        });
+
+        it('should toggle task and dispatch UPDATE_TASK action', (done) => {
+            const store = createMockStore({});
+            const action = actions.updateToggleTask(testTasksRef.key, true);
+
+            store.dispatch(action).then(() => {
+                const mockActions = store.getActions();
+
+                expect(mockActions[0]).toInclude({
+                    type: 'UPDATE_TASK',
+                    id: testTasksRef.key
+                });
+                expect(mockActions[0].updates).toInclude({
+                    completed: true
+                });
+                expect(mockActions[0].updates.completedAt).toExist();
+                done();
+            }, done);
+        });
     });
 });
