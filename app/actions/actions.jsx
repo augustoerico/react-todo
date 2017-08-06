@@ -1,3 +1,6 @@
+import firebase from 'app/firebase/';
+import moment from 'moment';
+
 export var setSearch = (search) => {
     return {
         type: 'SET_SEARCH',
@@ -5,10 +8,29 @@ export var setSearch = (search) => {
     };
 };
 
-export var addTask = (text) => {
+export var addTask = (task) => {
     return {
         type: 'ADD_TASK',
-        text
+        task
+    };
+};
+
+export var saveTask = (text) => {
+    return (dispatch, getState) => {
+        var task = {
+            text,
+            completed: false,
+            createdAt: moment().unix(),
+            completedAt: null
+        }
+        var tasksRef = firebase.database().ref('tasks/').push(task);
+
+        tasksRef.then(() => {
+            dispatch(addTask({
+                ...task,
+                id: tasksRef.key
+            }));
+        });
     };
 };
 

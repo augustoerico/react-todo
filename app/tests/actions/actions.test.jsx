@@ -16,9 +16,14 @@ describe('Actions', () => {
     it('should generate add task action', () => {
         var action = {
             type: 'ADD_TASK',
-            text: 'Thing to do'
+            task: {
+                id: '1',
+                text: 'Thing to do',
+                completed: false,
+                createdAt: 98765
+            }
         }
-        var result = actions.addTask(action.text);
+        var result = actions.addTask(action.task);
 
         expect(result).toEqual(action);
     });

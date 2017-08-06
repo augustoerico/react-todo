@@ -4,6 +4,7 @@ var TestUtils = require('react-addons-test-utils');
 var expect = require('expect');
 var $ = require('jquery');
 
+import * as actions from 'actions';
 var {TaskForm} = require('TaskForm');
 
 describe('TaskForm', () => {
@@ -17,10 +18,7 @@ describe('TaskForm', () => {
         var taskForm = TestUtils.renderIntoDocument(<TaskForm dispatch={spy}/>);
         var $el = $(ReactDOM.findDOMNode(taskForm));
 
-        var action = {
-            type: 'ADD_TASK',
-            text: 'foo'
-        };
+        var action = actions.saveTask('Check mail');
 
         taskForm.refs.text.value = 'foo';
         TestUtils.Simulate.submit($el.find('form')[0]);

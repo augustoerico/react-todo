@@ -46,13 +46,18 @@ describe('Reducers', () => {
 
             var action = {
                 type: 'ADD_TASK',
-                text: 'Do something'
+                task: {
+                    id: '1',
+                    text: 'Do something',
+                    completed: false,
+                    createAt: 987654321
+                }
             }
 
             var result = reducers.tasksReducer(deepFreeze([]), deepFreeze(action));
 
             expect(result.length).toEqual(1);
-            expect(result[0].text).toEqual(action.text);
+            expect(result[0]).toEqual(action.task);
 
         });
 

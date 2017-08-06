@@ -24,13 +24,7 @@ export var tasksReducer = (state = [], action) => {
         case 'ADD_TASK':
             return [
                 ...state,
-                {
-                    id: uuid(),
-                    text: action.text,
-                    completed: false,
-                    createdAt: moment().unix(),
-                    completedAt: undefined
-                }
+                action.task
             ];
         case 'ADD_TASKS':
             return [...state, ...action.tasks];
