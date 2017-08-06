@@ -76,12 +76,13 @@ describe('Actions', () => {
         expect(result).toEqual(action);
     });
 
-    it('should generate toggle task', () => {
+    it('should generate update task action', () => {
         var action = {
-            type: 'TOGGLE_TASK',
-            id: 1
+            type: 'UPDATE_TASK',
+            id: 1,
+            updates: {completed: true}
         }
-        var result = actions.toggleTask(action.id);
+        var result = actions.updateTask(action.id, action.updates);
 
         expect(result).toEqual(action);
     });

@@ -39,7 +39,7 @@ export var addTasks = (tasks) => {
         type: 'ADD_TASKS',
         tasks
     }
-}
+};
 
 export var toggleShowCompleted = () => {
     return {
@@ -47,9 +47,25 @@ export var toggleShowCompleted = () => {
     };
 };
 
-export var toggleTask = (id) => {
+export var updateTask = (id, updates) => {
     return {
-        type: 'TOGGLE_TASK',
-        id
+        type: 'UPDATE_TASK',
+        id,
+        updates
+    };
+};
+
+export var updateToggleTask = (id, completed) => {
+    return (dispatch, getState) => {
+        var taskRef = firebase.database().ref(`tasks/${id}`);
+        var updates = {
+            completed,
+            completedAt: completed ? moment().unix() : null
+        }
+
+        return taskRef.update(updates).then(() => {
+            dispatch(updateTask(id, updates));
+        });
+
     };
 };

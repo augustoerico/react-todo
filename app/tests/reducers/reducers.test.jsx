@@ -81,11 +81,7 @@ describe('Reducers', () => {
             expect(result[0]).toEqual(action.tasks[0]);
         });
 
-        it('should toggle a task', () => {
-            var action = {
-                type: 'TOGGLE_TASK',
-                id: '1234'
-            }
+        it('should update a task', () => {
             var tasks = [
                 {
                     id: '1234',
@@ -96,16 +92,22 @@ describe('Reducers', () => {
                 }
             ];
 
+            var updates = {
+                completed: false,
+                completedAt: null
+            };
+            var action = {
+                type: 'UPDATE_TASK',
+                id: tasks[0].id,
+                updates
+            }
+
             var result = reducers.tasksReducer(deepFreeze(tasks), deepFreeze(action));
 
             expect(result.length).toEqual(1);
-            expect(result[0].completed).toEqual(true);
-            expect(result[0].completedAt).toNotEqual(undefined);
-
-            result = reducers.tasksReducer(deepFreeze(result), deepFreeze(action));
-            
-            expect(result[0].completed).toEqual(false);
-            expect(result[0].completedAt).toEqual(undefined);
+            expect(result[0].completed).toEqual(updates.completed);
+            expect(result[0].completedAt).toEqual(updates.completedAt);
+            expect(result[0].text).toEqual(tasks[0].text);
 
         });
 

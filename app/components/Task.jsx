@@ -24,7 +24,7 @@ export var Task = React.createClass({
                 <div>
                     <input type="checkbox" checked={completed}
                         onChange={() => { 
-                                dispatch(actions.toggleTask(id)); 
+                                dispatch(actions.updateToggleTask(id, !completed)); 
                             }
                         }/>
                 </div>
