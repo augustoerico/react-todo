@@ -1,5 +1,9 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 var expect = require('expect');
+
 var actions = require('actions');
+var createMockStore = configureMockStore([thunk]);
 
 describe('Actions', () => {
     
@@ -26,6 +30,23 @@ describe('Actions', () => {
         var result = actions.addTask(action.task);
 
         expect(result).toEqual(action);
+    });
+
+    it('should create a task and dispatch ADD_TASK', (done) => {
+        const store = createMockStore({});
+        const taskText = 'Something to do';
+
+        store.dispatch(actions.saveTask(taskText)).then(() => {
+            const actions = store.getActions();
+            
+            expect(actions[0]).toInclude({
+                type: 'ADD_TASK'
+            });
+            expect(actions[0].task).toInclude({
+                text: taskText
+            });
+            done();
+        }).catch(done);
     });
 
     it('should generate add tasks action', () => {

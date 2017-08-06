@@ -25,7 +25,7 @@ export var saveTask = (text) => {
         }
         var tasksRef = firebase.database().ref('tasks/').push(task);
 
-        tasksRef.then(() => {
+        return tasksRef.then(() => {
             dispatch(addTask({
                 ...task,
                 id: tasksRef.key
