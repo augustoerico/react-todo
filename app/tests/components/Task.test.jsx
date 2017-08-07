@@ -4,7 +4,8 @@ var TestUtils = require('react-addons-test-utils');
 var expect = require('expect');
 var $ = require('jquery');
 
-var {Task} = require('Task');
+import * as actions from 'actions';
+import {Task} from 'Task';
 
 describe('Task', () => {
 
@@ -19,15 +20,14 @@ describe('Task', () => {
             completed: false
         };
 
+        var action = actions.updateToggleTask(task.id, !task.completed);
+
         var spy = expect.createSpy();
         var task = TestUtils.renderIntoDocument(<Task {...task} dispatch={spy}/>);
         var $el = $(ReactDOM.findDOMNode(task));
 
         TestUtils.Simulate.change($el.find('input')[0]);
-        expect(spy).toHaveBeenCalledWith({
-            type: 'TOGGLE_TASK',
-            id: 200
-        });
+        expect(spy).toHaveBeenCalledWith(action);
     });
 
 });

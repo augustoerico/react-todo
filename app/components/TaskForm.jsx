@@ -10,7 +10,7 @@ export var TaskForm = React.createClass({
 
         if (text.trim()) {
             this.refs.text.value = '';
-            dispatch(actions.addTask(text))
+            dispatch(actions.saveTask(text))
         } else {
             this.refs.text.focus();
         }
