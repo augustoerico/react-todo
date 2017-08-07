@@ -54,5 +54,5 @@ module.exports = {
             exclude: /(node_modules|bower_components)/
         }]
     },
-    devtool: env === 'dev' ? 'cheap-module-eval-source-map' : undefined
+    devtool: env === 'prod' ? undefined : 'cheap-module-eval-source-map'
 };
