@@ -1,7 +1,14 @@
 var path = require('path');
 var webpack = require('webpack');
+var envFile = require('node-env-file');
 
 var env = process.env.NODE_ENV || 'dev';
+
+try {
+    envFile(path.join(__dirname, 'config/' + env + '.env'));
+} catch (e) {
+
+}
 
 module.exports = {
     entry: [
@@ -18,6 +25,15 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
+            }
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify(env),
+                PROJECT_ID: JSON.stringify(process.env.PROJECT_ID),
+                API_KEY: JSON.stringify(process.env.API_KEY),
+                AUTH_DOMAIN: JSON.stringify(process.env.AUTH_DOMAIN),
+                DATABASE_URL: JSON.stringify(process.env.DATABASE_URL)
             }
         })
     ],

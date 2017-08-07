@@ -1,15 +1,14 @@
 import firebase from 'firebase';
 
+var env = process.env
+
 // Initialize Firebase
 try {
-    // FIXME add env vars
     var config = {
-        apiKey: "AIzaSyDnNHTceW61LN0j302lIUtA3KDAwkAU0lo",
-        authDomain: "taskdone-23445.firebaseapp.com",
-        databaseURL: "https://taskdone-23445.firebaseio.com",
-        projectId: "taskdone-23445",
-        storageBucket: "taskdone-23445.appspot.com",
-        messagingSenderId: "618234182671"
+        apiKey: env.API_KEY,
+        authDomain: env.AUTH_DOMAIN,
+        databaseURL: env.DATABASE_URL,
+        projectId: env.PROJECT_ID
     };
     firebase.initializeApp(config);
 } catch (e) {
