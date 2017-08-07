@@ -89,19 +89,20 @@ describe('Actions', () => {
     });
 
     describe('Firebase tasks', () => {
-        var testTasksRef;
+        var testTasksRef = firebase.database().ref('tasks/');
 
         beforeEach((done) => {
-            testTasksRef = firebase.database().ref('tasks/').push();
-            testTasksRef.set({
-                text: 'Something to do',
-                completed: false,
-                createdAt: 987654321
-            }).then(() => done());
+            testTasksRef.remove().then(() => {
+                return testTasksRef.push({
+                    text: 'Something to do',
+                    completed: false,
+                    createdAt: 987654321
+                });
+            }).then(() => done()).catch(done);
         });
 
         afterEach((done) => {
-            testTasksRef.remove().then(() => done());
+            testTasksRef.remove().then(() => done()).catch(done);
         });
 
         it('should toggle task and dispatch UPDATE_TASK action', (done) => {
@@ -120,7 +121,47 @@ describe('Actions', () => {
                 });
                 expect(mockActions[0].updates.completedAt).toExist();
                 done();
-            }, done);
+            }).catch(done);
+        });
+
+        it('should create a task and dispatch ADD_TASK action', (done) => {
+            const taskText = 'Another thing to do';
+            const store = createMockStore();
+            const action = actions.saveTask(taskText);
+
+            store.dispatch(action).then(() => {
+                const mockActions = store.getActions();
+
+                expect(mockActions.length).toEqual(1);
+                expect(mockActions[0]).toInclude({
+                    type: 'ADD_TASK'
+                });
+                expect(mockActions[0].task).toInclude({
+                    text: taskText,
+                    completed: false,
+                    completedAt: null
+                });
+                expect(mockActions[0].task.createdAt).toExist();
+                done();
+            }).catch(done);
+        });
+
+        it('should fetch tasks and dispatch ADD_TASKS action', (done) => {
+            const store = createMockStore();
+            const action = actions.fetchTasks();
+
+            store.dispatch(action).then(() => {
+                const mockActions = store.getActions();
+
+                expect(mockActions[0].type).toEqual('ADD_TASKS');
+                expect(mockActions[0].tasks.length).toEqual(1);
+                expect(mockActions[0].tasks[0]).toInclude({
+                    text: 'Something to do',
+                    completed: false,
+                    createdAt: 987654321
+                });
+                done();
+            }).catch(done);
         });
     });
 });
