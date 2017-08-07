@@ -41,6 +41,24 @@ export var addTasks = (tasks) => {
     }
 };
 
+export var fetchTasks = () => {
+    return (dispatch, getState) => {
+        return firebase.database().ref('tasks/').once('value').then((data) => {
+            var tasks = [];
+            var keys = Object.keys(data.val() || {});
+            
+            keys.forEach(function(key) {
+                tasks.push({
+                    id: key,
+                    ...(data.val()[key])
+                })
+            });
+            
+            dispatch(addTasks(tasks));
+        });
+    }
+}
+
 export var toggleShowCompleted = () => {
     return {
         type: 'TOGGLE_SHOW_COMPLETED'
