@@ -4,15 +4,15 @@ import Task from 'Task';
 var API = require('API');
 
 export var TaskList = React.createClass({
-    renderTasks: function (tasks, showCompleted, search) {
-        var filteredTasks = API.filterTasks(tasks, showCompleted, search);
-        return filteredTasks.map((task) => {
+    renderTasks: function (tasks) {
+        return tasks.map((task) => {
             return <Task key={task.id} {...task}/>
         });
     },
     render: function () {
         var {tasks, showCompleted, search} = this.props;
-        if (tasks.length === 0) {
+        var filteredTasks = API.filterTasks(tasks, showCompleted, search);
+        if (filteredTasks.length === 0) {
             return (
                 <div>
                     <p className="container__message">Nothing to do</p>
@@ -21,7 +21,7 @@ export var TaskList = React.createClass({
         }
         return (
             <div>
-                {this.renderTasks(tasks, showCompleted, search)}
+                {this.renderTasks(filteredTasks)}
             </div>
         );
     }
